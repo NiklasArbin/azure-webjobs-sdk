@@ -98,6 +98,25 @@ namespace Microsoft.Azure.WebJobs.Host
             return null;
         }
 
+        internal static TAttribute GetResolvedAttribute<TAttribute>(ParameterInfo parameter) where TAttribute : Attribute
+        {
+            var attribute = parameter.GetCustomAttribute<TAttribute>();
+
+            var storageAttribute = attribute as StorageAttribute;
+            if (storageAttribute != null && string.IsNullOrEmpty(storageAttribute.Account))
+            {
+                // if this is a StorageAttribute and no Account is specified, see if there is an
+                // account override specified up the hierarchy and if so apply it directly to the attribute
+                var storageAccountAttribute = GetHierarchicalAttributeOrNull<StorageAccountAttribute>(parameter);
+                if (storageAccountAttribute != null && string.IsNullOrEmpty(storageAttribute.Account))
+                {
+                    storageAttribute.Account = storageAccountAttribute.Account;
+                }
+            }
+
+            return attribute;
+        }
+
         public static bool IsAsync(MethodInfo methodInfo)
         {
             if (methodInfo == null)

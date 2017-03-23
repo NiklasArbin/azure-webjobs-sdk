@@ -26,7 +26,7 @@ namespace Microsoft.Azure.WebJobs
     /// </remarks>
     [AttributeUsage(AttributeTargets.Parameter)]
     [DebuggerDisplay("{BlobPath,nq}")]
-    public sealed class BlobTriggerAttribute : Attribute
+    public sealed class BlobTriggerAttribute : StorageAttribute
     {
         private readonly string _blobPath;
 

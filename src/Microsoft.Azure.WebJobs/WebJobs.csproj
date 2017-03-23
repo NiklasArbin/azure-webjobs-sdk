@@ -77,6 +77,7 @@
     <Compile Include="SingletonMode.cs" />
     <Compile Include="SingletonScope.cs" />
     <Compile Include="StorageAccountAttribute.cs" />
+    <Compile Include="StorageAttribute.cs" />
     <Compile Include="TableAttribute.cs" />
     <Compile Include="NoAutomaticTriggerAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
